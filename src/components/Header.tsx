@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const navLinks = [
+  { label: '首页',     href: '#hero'     },
   { label: '项目展示', href: '#projects' },
   { label: '关于我',   href: '#about'   },
   { label: '联系方式', href: '#contact'  },
@@ -39,7 +40,7 @@ export default function Header() {
             <a
               key={href}
               href={href}
-              className="px-3 py-1.5 rounded-full text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+              className="px-3 py-1.5 rounded-full text-sm font-bold text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
             >
               {label}
             </a>
