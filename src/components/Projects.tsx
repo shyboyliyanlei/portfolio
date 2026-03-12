@@ -73,6 +73,7 @@ function ProjectCard({ project }: { project: Project }) {
 export default function Projects() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isAtEnd, setIsAtEnd] = useState(false)
 
   const scrollTo = useCallback((direction: 'prev' | 'next') => {
     const el = scrollRef.current
@@ -87,6 +88,7 @@ export default function Projects() {
     const step = CARD_WIDTH + CARD_GAP
     const index = Math.round(el.scrollLeft / step)
     setActiveIndex(Math.min(index, projects.length - 1))
+    setIsAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4)
   }, [])
 
   return (
@@ -123,13 +125,15 @@ export default function Projects() {
           transition={{ duration: 0.6, delay: 0.2, ease }}
         >
           {/* Prev button */}
-          <button
-            onClick={() => scrollTo('prev')}
-            aria-label="上一个"
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/30 transition-colors shadow-lg"
-          >
-            ‹
-          </button>
+          {activeIndex > 0 && (
+            <button
+              onClick={() => scrollTo('prev')}
+              aria-label="上一个"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/30 transition-colors shadow-lg"
+            >
+              ‹
+            </button>
+          )}
 
           {/* Scroll container */}
           <div
@@ -143,13 +147,15 @@ export default function Projects() {
           </div>
 
           {/* Next button */}
-          <button
-            onClick={() => scrollTo('next')}
-            aria-label="下一个"
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/30 transition-colors shadow-lg"
-          >
-            ›
-          </button>
+          {!isAtEnd && (
+            <button
+              onClick={() => scrollTo('next')}
+              aria-label="下一个"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/30 transition-colors shadow-lg"
+            >
+              ›
+            </button>
+          )}
         </motion.div>
 
         {/* Dot indicators */}
