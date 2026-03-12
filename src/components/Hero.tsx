@@ -64,19 +64,19 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 hover:shadow-lg hover:shadow-purple-500/40 hover:scale-[1.03] transition-all"
+              className="px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 transition-opacity shadow-lg shadow-purple-500/20"
             >
               查看项目
             </a>
             <a
               href="#about"
-              className="px-6 py-3 rounded-full font-semibold text-white border border-white/20 hover:border-white/50 hover:bg-white/[0.08] transition-all"
+              className="px-6 py-3 rounded-full font-semibold text-gray-300 border border-white/10 hover:border-white/50 hover:text-white transition-all"
             >
               关于我
             </a>
             <a
               href="#contact"
-              className="px-6 py-3 rounded-full font-semibold text-white border border-white/20 hover:border-white/50 hover:bg-white/[0.08] transition-all"
+              className="px-6 py-3 rounded-full font-semibold text-gray-300 border border-white/10 hover:border-white/50 hover:text-white transition-all"
             >
               联系我
             </a>
