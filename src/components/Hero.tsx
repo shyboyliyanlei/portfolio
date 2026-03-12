@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import avatarImg from '../assets/avatar.jpg'
 
 const ease = 'easeOut' as const
 
@@ -65,13 +64,19 @@ export default function Hero() {
           >
             <a
               href="#projects"
-              className="px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 transition-opacity"
+              className="px-6 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 hover:shadow-lg hover:shadow-purple-500/40 hover:scale-[1.03] transition-all"
             >
               查看项目
             </a>
             <a
+              href="#about"
+              className="px-6 py-3 rounded-full font-semibold text-white border border-white/20 hover:border-white/50 hover:bg-white/[0.08] transition-all"
+            >
+              关于我
+            </a>
+            <a
               href="#contact"
-              className="px-6 py-3 rounded-full font-semibold text-white border border-white/20 hover:border-white/50 transition-colors"
+              className="px-6 py-3 rounded-full font-semibold text-white border border-white/20 hover:border-white/50 hover:bg-white/[0.08] transition-all"
             >
               联系我
             </a>
@@ -86,13 +91,9 @@ export default function Hero() {
           >
             {/* Gradient border wrapper */}
             <div className="p-[3px] rounded-full bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-400 shadow-[0_0_60px_rgba(139,92,246,0.4)]">
-              <div className="rounded-full overflow-hidden w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 bg-[#0a0a0a]">
-                <img
-                  src={avatarImg}
-                  alt="avatar"
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
+              <div className="w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full bg-[#0f0f0f] flex flex-col items-center justify-center gap-1 select-none">
+                <span className="text-7xl sm:text-8xl lg:text-9xl leading-none">🐒</span>
+                <span className="text-xs text-gray-500 tracking-widest font-medium">Hi, I'm Jerry</span>
               </div>
             </div>
           </motion.div>

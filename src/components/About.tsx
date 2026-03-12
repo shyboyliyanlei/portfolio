@@ -28,7 +28,7 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
             关于{' '}
             <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              我自己
+              我
             </span>
           </h2>
           <div className="mt-4 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500" />

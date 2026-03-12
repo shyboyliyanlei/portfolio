@@ -32,7 +32,7 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#080808] border-t border-white/5">
+    <footer className="bg-[#020202] border-t border-white/5">
 
       {/* ── Top banner ── */}
       <div className="relative overflow-hidden py-16">
@@ -68,6 +68,12 @@ export default function Footer() {
               className="px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white text-sm font-semibold hover:opacity-90 transition-opacity shadow-lg shadow-purple-500/20"
             >
               联系我
+            </a>
+            <a
+              href="#about"
+              className="px-6 py-2.5 rounded-full border border-white/10 text-gray-300 text-sm font-semibold hover:border-white/25 hover:text-white transition-colors"
+            >
+              关于我
             </a>
             <a
               href="#projects"
@@ -119,7 +125,7 @@ export default function Footer() {
       {/* ── Bottom bar ── */}
       <div className="border-t border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-600">
-          <span>© {currentYear} &lt;YourName /&gt; · All rights reserved.</span>
+          <span>© {currentYear} Jerry · All rights reserved.</span>
           <span>Built with React · TypeScript · Tailwind CSS · Framer Motion</span>
         </div>
       </div>

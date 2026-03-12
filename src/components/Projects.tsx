@@ -1,7 +1,11 @@
+import { useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import projects, { type Project } from '../data/projects'
 
 const ease = 'easeOut' as const
+
+const CARD_WIDTH = 320 // px, matches w-80
+const CARD_GAP = 24   // gap-6 = 1.5rem = 24px
 
 // Tag color cycling for tech stack pills
 const tagColors = [
@@ -11,16 +15,9 @@ const tagColors = [
   'bg-indigo-500/15 text-indigo-300 border-indigo-500/20',
 ]
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <motion.article
-      className="group flex flex-col rounded-2xl border border-white/5 bg-[#111111] overflow-hidden hover:border-purple-500/40 transition-colors duration-300"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, delay: index * 0.1, ease }}
-      whileHover={{ y: -6, transition: { duration: 0.2 } }}
-    >
+    <article className="group flex-shrink-0 w-80 flex flex-col rounded-2xl border border-white/5 bg-[#111111] overflow-hidden hover:border-purple-500/40 transition-colors duration-300">
       {/* Screenshot */}
       <div className="aspect-video w-full overflow-hidden bg-[#1a1a1a]">
         {project.screenshot ? (
@@ -69,11 +66,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </a>
         )}
       </div>
-    </motion.article>
+    </article>
   )
 }
 
 export default function Projects() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const scrollTo = useCallback((direction: 'prev' | 'next') => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = CARD_WIDTH + CARD_GAP
+    el.scrollBy({ left: direction === 'next' ? step : -step, behavior: 'smooth' })
+  }, [])
+
+  const onScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = CARD_WIDTH + CARD_GAP
+    const index = Math.round(el.scrollLeft / step)
+    setActiveIndex(Math.min(index, projects.length - 1))
+  }, [])
+
   return (
     <section id="projects" className="py-24 bg-[#0a0a0a]">
       <div className="max-w-6xl mx-auto px-6">
@@ -99,10 +114,63 @@ export default function Projects() {
           <div className="mt-4 mx-auto w-16 h-1 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500" />
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.name} project={project} index={index} />
+        {/* Carousel */}
+        <motion.div
+          className="relative px-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+        >
+          {/* Prev button */}
+          <button
+            onClick={() => scrollTo('prev')}
+            aria-label="上一个"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/30 transition-colors shadow-lg"
+          >
+            ‹
+          </button>
+
+          {/* Scroll container */}
+          <div
+            ref={scrollRef}
+            onScroll={onScroll}
+            className="flex gap-6 overflow-x-scroll scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          >
+            {projects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
+            ))}
+          </div>
+
+          {/* Next button */}
+          <button
+            onClick={() => scrollTo('next')}
+            aria-label="下一个"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-gray-300 hover:text-white hover:border-white/30 transition-colors shadow-lg"
+          >
+            ›
+          </button>
+        </motion.div>
+
+        {/* Dot indicators */}
+        <div className="mt-6 flex items-center justify-center gap-2">
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              aria-label={`跳到第 ${i + 1} 个项目`}
+              onClick={() => {
+                const el = scrollRef.current
+                if (!el) return
+                const step = CARD_WIDTH + CARD_GAP
+                el.scrollTo({ left: i * step, behavior: 'smooth' })
+                setActiveIndex(i)
+              }}
+              className={`rounded-full transition-all duration-300 ${
+                i === activeIndex
+                  ? 'w-6 h-2 bg-purple-400'
+                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+              }`}
+            />
           ))}
         </div>
 

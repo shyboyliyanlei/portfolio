@@ -18,20 +18,20 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 border-b transition-all duration-300 ${
         scrolled
-          ? 'bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
-          : 'bg-transparent'
+          ? 'bg-[#020202]/95 backdrop-blur-md border-white/10 shadow-lg shadow-black/20'
+          : 'bg-transparent border-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <a
-          href="#hero"
-          className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-        >
-          &lt;YourName /&gt;
+        <a href="#hero" className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+          <span className="text-base font-black text-purple-400 tracking-tight">&lt;/&gt;</span>
+          <span className="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Jerry
+          </span>
         </a>
 
         {/* Nav */}
